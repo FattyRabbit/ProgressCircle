@@ -7,7 +7,7 @@ ProgressCircle is a Custom View for show progress in a circular.
 
 
 <div align="center">
-  <img height="400px" src="https://raw.github.com/FattyRabbit/ProgressCircle/master/raw/screenshot1.png"/>
+  <img width="348px" src="https://github.com/FattyRabbit/ProgressCircle/raw/master/screenshot1.png"/>
 </div>
 
 
