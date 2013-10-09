@@ -14,9 +14,12 @@ import android.widget.Button;
 
 public class MainActivity extends Activity implements OnClickListener {
 
-	private float mLaptime = 0.0f;
-	private float totalMSecond = 0.25f * 60 * 1000;
+	private static final float TIME_UNIT_S = 1000;
+	private static final float TIME_UNIT_M = 60 * 1000;
+	private static final float TIME_UNIT_H = 60 * 60 * 1000;
+	private float totalMSecond = 1.25f * 60 * 1000;
 	private float progressMSecond = 0.0f;
+	private float mLaptime = totalMSecond;
 	private Timer mTimer = null;
 	private Handler mHandler = new Handler();
 	private ProgressCircle mProgressCircle = null;
@@ -40,15 +43,12 @@ public class MainActivity extends Activity implements OnClickListener {
 						mHandler.post(new Runnable() {
 							public void run() {
 								// 実行間隔分を加算処理
-								mLaptime += 0.1f;
+								mLaptime -= 100.0f;
 								progressMSecond += 100.0f;
 
-								// 計算にゆらぎがあるので小数点第1位で丸める
-								BigDecimal bi = new BigDecimal(mLaptime);
-								float outputValue = bi.setScale(1, BigDecimal.ROUND_HALF_UP).floatValue();
-
 								// 現在のLapTime
-								mProgressCircle.setText(Float.toString(outputValue) + "S");
+								String dispTime = convertDispTime(mLaptime);
+								mProgressCircle.setText(dispTime);
 								mProgressCircle.setProgress(progressMSecond);
 								mProgressCircle.invalidate();
 
@@ -56,7 +56,7 @@ public class MainActivity extends Activity implements OnClickListener {
 									mTimer.cancel();
 									mTimer.purge();
 									mTimer = null;
-									mLaptime = 0.0f;
+									mLaptime = totalMSecond;
 									progressMSecond = 0.0f;
 								}
 							}
@@ -88,6 +88,8 @@ public class MainActivity extends Activity implements OnClickListener {
 		mProgressCircle = (ProgressCircle) findViewById(R.id.progressCircle);
 		mProgressCircle.setMax(totalMSecond);
 		mProgressCircle.setProgress(progressMSecond);
+		String dispTime = convertDispTime(mLaptime);
+		mProgressCircle.setText(dispTime);
 
 		// タイマー開始ボタンの処理
 		Button btnStart = (Button) findViewById(R.id.btn_start);
@@ -122,5 +124,26 @@ public class MainActivity extends Activity implements OnClickListener {
 		if (mTimer != null) {
 			mTimer.cancel();
 		}
+	}
+
+	private String convertDispTime(float timeMS) {
+		String returnStr ="";
+		BigDecimal bi = new BigDecimal(timeMS);
+		if (TIME_UNIT_H < timeMS) {
+			BigDecimal divisor = new BigDecimal(TIME_UNIT_H);
+			int outputValue = bi.divide(divisor, 0, BigDecimal.ROUND_FLOOR).intValue();
+			returnStr = Integer.toString(outputValue) + "H";
+		} else if  (TIME_UNIT_M < timeMS) {
+			BigDecimal divisor = new BigDecimal(TIME_UNIT_M);
+			int outputValue = bi.divide(divisor, 0, BigDecimal.ROUND_FLOOR).intValue();
+			returnStr = Integer.toString(outputValue) + "M";
+		} else {
+			// 計算にゆらぎがあるので小数点第1位で丸める
+			BigDecimal divisor = new BigDecimal(TIME_UNIT_S);
+			float outputValue = bi.divide(divisor, 1, BigDecimal.ROUND_FLOOR).floatValue();
+			returnStr = Float.toString(outputValue) + "S";
+		}
+
+		return returnStr;
 	}
 }

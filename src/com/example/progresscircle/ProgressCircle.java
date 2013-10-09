@@ -1,3 +1,6 @@
+/**
+ *
+ */
 package com.example.progresscircle;
 
 import java.math.BigDecimal;
@@ -14,6 +17,11 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 
+/**
+ * Class of ProgressCircle
+ *
+ * @author i-kugyon
+ */
 public class ProgressCircle extends View {
 
 	public static final int ALIGN_CENTER = 0;
