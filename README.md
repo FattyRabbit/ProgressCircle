@@ -17,9 +17,9 @@ ProgressCircle is a Custom View for show progress in a circular.
 
 Add the View in your Layout
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:progresscircle="http://schemas.android.com/apk/res/com.example.progresscircle"
-    ・・・・ >
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:progresscircle="http://schemas.android.com/apk/res/com.example.progresscircle"
+        ・・・・ >
 
     <com.example.progresscircle.ProgressCircle
         android:id="@+id/progressCircle"
@@ -36,24 +36,24 @@ Add the View in your Layout
         progresscircle:max="100"
         progresscircle:progress="0" />
 
-</LinearLayout>
+    </LinearLayout>
 
 Add the View in code
 
-		ProgressCircle mProgressCircle = new ProgressCircle();
-		mProgressCircle.setText("1M");
-		mProgressCircle.setTextColor(Color.parseColor("#FF33B5E5"));
-		mProgressCircle.setTextSize(100);
-		mProgressCircle.setRimColor(Color.parseColor("#FF0A0A0A"));
-		mProgressCircle.setRimWidth(5);
-		mProgressCircle.setBarColor(Color.parseColor("#FF33B5E5"));
-		mProgressCircle.setBarWidth(10);
-		mProgressCircle.setBarAlign(ProgressCircle.ALIGN_OUTER);
-		mProgressCircle.setMax(100);
-		mProgressCircle.setProgress(0);
+	ProgressCircle mProgressCircle = new ProgressCircle();
+	mProgressCircle.setText("1M");
+	mProgressCircle.setTextColor(Color.parseColor("#FF33B5E5"));
+	mProgressCircle.setTextSize(100);
+	mProgressCircle.setRimColor(Color.parseColor("#FF0A0A0A"));
+	mProgressCircle.setRimWidth(5);
+	mProgressCircle.setBarColor(Color.parseColor("#FF33B5E5"));
+	mProgressCircle.setBarWidth(10);
+	mProgressCircle.setBarAlign(ProgressCircle.ALIGN_OUTER);
+	mProgressCircle.setMax(100);
+	mProgressCircle.setProgress(0);
 
-		LayoutParams params = new LayoutParams(100, 100);
-		this.addContentView(mProgressCircle, params);
+	LayoutParams params = new LayoutParams(100, 100);
+	this.addContentView(mProgressCircle, params);
 
 ## License
 
